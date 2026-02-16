@@ -1,0 +1,21 @@
+namespace org.example@1.0.0
+
+@Term("Entity")
+@Crud("Readable")
+concept Entity {
+    @Term("First Name")
+    @Crud("Readable")
+    o String firstName
+
+    @Term("Last Name")
+    @Crud("Readable")
+    o String lastName
+}
+
+@Term("Account")
+@Crud("Readable")
+concept Account {
+    @Term("Account Number")
+    @Crud("Readable")
+    o String accountNumber
+}
