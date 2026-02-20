@@ -1,9 +1,11 @@
 import { Router } from "express";
 import Paths from "../constants/paths";
 import dataIORouter from "./dataio.controller";
+import authRouter from "./auth.controller";
 
 const apiRouter = Router();
 
 apiRouter.use(Paths.DataIO.Base, dataIORouter);
+apiRouter.use(Paths.Auth.Base, authRouter);
 
 export default apiRouter;
