@@ -1,28 +1,7 @@
-import { QueryExecutor } from "./queryExecutor";
-
 /**
  * Utility class to filter and rehydrate a single search result.
  */
 export class ResultRehydrator {
-    /**
-     * Filters and rehydrates a single record based on attributesToSelect.
-     * @param attributesToSelect - The list of attributes to select and rehydrate.
-     * @param record - The record to filter and rehydrate.
-     * @returns The rehydrated object with selected attributes.
-     */
-    public static filterAndRehydrate(attributesToSelect: string[], record: Record<string, any>): Record<string, any> {
-        const rehydratedResult: Record<string, any> = {};
-
-        for (const attribute of attributesToSelect) {
-            const value: any = QueryExecutor.resolveWalk(attribute, record);
-            if (value !== undefined) {
-                ResultRehydrator.assignValueByPath(rehydratedResult, attribute, value);
-            }
-        }
-
-        return rehydratedResult;
-    }
-
     /**
      * Assigns a value to an object at a specific path.
      * Removes any type suffix (e.g., (:typeName)) from keys.
