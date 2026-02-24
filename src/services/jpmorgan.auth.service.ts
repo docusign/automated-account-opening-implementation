@@ -1,69 +1,32 @@
-import { IReq, IRes } from '../utils/types';
-import jwt from 'jsonwebtoken';
-import env from '../env';
+import { IRes } from '../utils/types';
 import axios from 'axios';
-import fs from 'fs';
-const crypto = require('crypto');
+import env from '../env';
 
 let cachedToken: string | null = null;
 let tokenExpiry: number | null = null;
 
-const buildClientAssertion = (): string => {
-  const privateKey = fs.readFileSync(env.JPM_PRIVATE_KEY_PATH, 'utf8');
-  const certificate = fs.readFileSync(env.JPM_CERT_PATH, 'utf8');
-
-  // Compute SHA-256 thumbprint (base64url)
-  const certDer = crypto
-    .createHash('sha256')
-    .update(
-      crypto
-        .createPublicKey(certificate)
-        .export({ type: 'spki', format: 'der' })
-    )
-    .digest('base64url');
-
-  const now = Math.floor(Date.now() / 1000);
-
-  const payload = {
-    iss: env.JPM_CLIENT_ID,
-    sub: env.JPM_CLIENT_ID,
-    aud: env.JPM_TOKEN_URL,
-    jti: crypto.randomUUID(),
-    iat: now,
-    exp: now + 300 // 5 min
-  };
-
-  return jwt.sign(payload, privateKey, {
-    algorithm: 'RS256',
-    header: {
-      alg: 'RS256',
-      typ: 'JWT',
-      'x5t#S256': certDer
-    }
-  });
-};
-
 const fetchAccessToken = async (): Promise<string> => {
+  // Return cached token if still valid
   if (cachedToken && tokenExpiry && Date.now() < tokenExpiry) {
     return cachedToken;
   }
 
-  const clientAssertion = buildClientAssertion();
-
   const body = new URLSearchParams({
+    client_id: env.JPM_CLIENT_ID as string,
+    client_secret: env.JWT_SECRET_KEY as string,
     grant_type: 'client_credentials',
-    client_id: env.JPM_CLIENT_ID,
-    client_assertion_type:
-      'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
-    client_assertion: clientAssertion,
-    scope: env.JPM_SCOPE // or remove if not required
+    scope: 'jpm:payments:sandbox'
   });
 
-  const response = await axios.post(env.JPM_TOKEN_URL, body.toString(), {
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
+  const response = await axios.post(
+    env.JPM_AUTH_URL,
+    body.toString(),
+    {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     }
-  });
+  );
 
   const { access_token, expires_in } = response.data;
 
@@ -73,8 +36,7 @@ const fetchAccessToken = async (): Promise<string> => {
   return access_token;
 };
 
-
-export const generateAuthToken = async (req: IReq, res: IRes) => {
+export const generateAuthToken = async (res: IRes) => {
   try {
     const token = await fetchAccessToken();
 
@@ -84,7 +46,8 @@ export const generateAuthToken = async (req: IReq, res: IRes) => {
     });
   } catch (error: any) {
     console.error(error.response?.data || error.message);
-
-    return new Error();
+    return res.status(500).json({
+      error: 'Failed to retrieve access token'
+    });
   }
 };
