@@ -138,10 +138,10 @@ export const searchRecords = async (req: IReq<SearchRecordsBody>, res: IRes): Pr
         entity,
       }
 
-      response = await validateAccount(body, res);
-      verified = response.data[0]?.responses[0]?.codes?.verification?.message === "Open Valid"
-        && response.data[0]?.responses[0]?.codes?.authentication?.message === "Ownership Match"
-        || false;
+      response = await validateAccount(body);
+      verified = response.data[0]?.responses[0]?.codes?.verification?.message?.toLowerCase() === "open valid"
+        && (response.data[0]?.responses[0]?.codes?.authentication?.message?.toLowerCase() === "ownership match"
+          || response.data[0]?.responses[0]?.codes?.authentication?.message?.toLowerCase() === "open valid");
     } else {
       const entity = mapWithSchema(keyValuePairs, entitySchema);
 
@@ -149,18 +149,17 @@ export const searchRecords = async (req: IReq<SearchRecordsBody>, res: IRes): Pr
         requestId: randomUUID(),
         entity,
       }
-      response = await validateEntity(body, res);
-      verified = response.data[0]?.responses[0]?.codes?.individualID?.message === "Pass"
-        || false;
+      response = await validateEntity(body);
+      verified = response.data[0]?.responses[0]?.codes?.individualID?.message?.toLowerCase() === "pass";
     }
 
-    const validationResponse = { verified, message: "Verified" };
+    const validationResponse = { records: [{ verified }] };
 
     return res.status(200).json(validationResponse);
   } catch (error) {
     console.log(`Encountered an error searching data: ${error.message}`);
 
-    const validationResponse = { verified: false, message: error.message };
+    const validationResponse = { records: [{ verified: false, message: error.message }] };
     return res.status(200).json(validationResponse);
   }
 };

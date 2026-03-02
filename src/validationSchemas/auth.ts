@@ -1,9 +1,8 @@
 import { Schema } from 'express-validator';
-import env from '../env';
 
 export const authorizeQuery: Schema = {
   redirect_uri: { trim: true, isURL: true },
-  client_id: { trim: true, equals: { options: env.OAUTH_CLIENT_ID } },
+  client_id: { trim: true, equals: { options: process.env.OAUTH_CLIENT_ID } },
   state: { trim: true, isString: true },
 };
 

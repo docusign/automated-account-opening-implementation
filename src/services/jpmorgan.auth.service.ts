@@ -1,31 +1,31 @@
 import { IRes } from '../utils/types';
 import axios from 'axios';
-import env from '../env';
 
 let cachedToken: string | null = null;
 let tokenExpiry: number | null = null;
 
-const fetchAccessToken = async (): Promise<string> => {
+export const fetchAccessToken = async (): Promise<string> => {
   // Return cached token if still valid
   if (cachedToken && tokenExpiry && Date.now() < tokenExpiry) {
     return cachedToken;
   }
 
-  const body = new URLSearchParams({
-    client_id: env.JPM_CLIENT_ID as string,
-    client_secret: env.JWT_SECRET_KEY as string,
+  const data = new URLSearchParams({
+    client_id: process.env.JPM_CLIENT_ID!,
+    client_secret: process.env.JPM_SECRET_KEY!,
     grant_type: 'client_credentials',
     scope: 'jpm:payments:sandbox'
-  });
+  }).toString();
 
   const response = await axios.post(
-    env.JPM_AUTH_URL,
-    body.toString(),
+    process.env.JPM_AUTH_URL || 'https://id.payments.jpmorgan.com/am/oauth2/alpha/access_token',
+    data,
     {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    }
+      },
+      maxRedirects: 5,
+    },
   );
 
   const { access_token, expires_in } = response.data;

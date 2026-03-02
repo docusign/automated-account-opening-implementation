@@ -1,27 +1,25 @@
-import { IRes } from '../utils/types';
 import axios from 'axios';
-import env from '../env';
-import { generateAuthToken } from './jpmorgan.auth.service'; // adjust path if needed
+import { fetchAccessToken } from './jpmorgan.auth.service'; // adjust path if needed
 import { AccountValidationRequestBody, EntityValidationRequestBody } from '../models/jpmorgan';
 
-export const validateEntity = async (validationData: EntityValidationRequestBody, res: IRes) => {
+export const validateEntity = async (validationData: EntityValidationRequestBody) => {
   try {
-    const accessToken = await generateAuthToken(res);
+    await fetchAccessToken();
 
-    const response = await axios.post(
-      `${env.JPM_REQUEST_URL}/v2/validations/entity`,
-      validationData,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          'Content-Type': 'application/json',
-          Accept: 'application/json'
-        }
-      }
-    );
+    const options = {
+      method: 'POST',
+      url: `${process.env.JPM_REQUEST_URL}/v2/validations/entities`,
+      headers: {
+        'x-client-id': process.env.JPM_CLIENT_ID,
+        'x-program-id': 'COMPANYINDIVIDUAL',
+        'x-program-id-type': 'AVS',
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      data: [validationData]
+    }
 
-    return response;
-
+    return await axios.request(options);
   } catch (error: any) {
     console.error(
       error.response?.data || error.message || 'Entity validation failed'
@@ -31,24 +29,24 @@ export const validateEntity = async (validationData: EntityValidationRequestBody
   }
 };
 
-export const validateAccount = async (validationData: AccountValidationRequestBody, res: IRes) => {
+export const validateAccount = async (validationData: AccountValidationRequestBody) => {
   try {
-    const accessToken = await generateAuthToken(res);
+    await fetchAccessToken();
 
-    const response = await axios.post(
-      `${env.JPM_REQUEST_URL}/v2/validations/accounts`,
-      validationData,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          'Content-Type': 'application/json',
-          Accept: 'application/json'
-        }
+    const options = {
+      method: 'POST',
+      url: `${process.env.JPM_REQUEST_URL}/v2/validations/accounts`,
+      data: [validationData],
+      headers: {
+        'x-client-id': process.env.JPM_CLIENT_ID,
+        'x-program-id': 'COMPANYINDIVIDUAL',
+        'x-program-id-type': 'AVS',
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
       }
-    );
+    };
 
-    return response;
-
+    return await axios.request(options);
   } catch (error: any) {
     console.error(
       error.response?.data || error.message || 'Account validation failed'

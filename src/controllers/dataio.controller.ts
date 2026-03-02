@@ -6,14 +6,13 @@ import { getTypeDefinitions, getTypeNames, searchRecords } from '../services/dat
 import { dataIOGetTypeDefinitionsRecordBody, dataIOGetTypeNamesRecordBody, dataIOSearchRecordsBody } from '../validationSchemas/dataio';
 
 import Paths from '../constants/paths';
-import env from '../env';
 
 const dataIORouter = Router();
 
 dataIORouter.post(
     Paths.DataIO.GetTypeNames.Post,
     jwt({
-      secret: env.JWT_SECRET_KEY,
+      secret: process.env.JWT_SECRET_KEY!,
       algorithms: ['HS256'],
     }),
     checkSchema(dataIOGetTypeNamesRecordBody, ['body']),
@@ -24,7 +23,7 @@ dataIORouter.post(
 dataIORouter.post(
     Paths.DataIO.GetTypeDefinitions.Post,
     jwt({
-      secret: env.JWT_SECRET_KEY,
+      secret: process.env.JWT_SECRET_KEY!,
       algorithms: ['HS256'],
     }),
     checkSchema(dataIOGetTypeDefinitionsRecordBody, ['body']),
@@ -35,7 +34,7 @@ dataIORouter.post(
 dataIORouter.post(
     Paths.DataIO.SearchRecords.Post,
     jwt({
-      secret: env.JWT_SECRET_KEY,
+      secret: process.env.JWT_SECRET_KEY!,
       algorithms: ['HS256'],
     }),
     checkSchema(dataIOSearchRecordsBody, ['body']),
