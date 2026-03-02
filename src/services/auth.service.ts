@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { JwtPayload } from 'jsonwebtoken';
 import { AuthorizeQuery, GenerateAuthTokenBody } from '../models/auth';
 import env from '../env';
-const crypto = require('crypto');
+import * as crypto from'crypto';
 
 export const authorize = (req: IReqQuery<AuthorizeQuery>, res: IRes) => {
   const {

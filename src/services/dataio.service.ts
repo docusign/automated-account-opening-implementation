@@ -9,6 +9,7 @@ import { accountSchema } from "../mapping/account.schema";
 import { entitySchema } from "../mapping/entity.schema";
 import { randomUUID } from "crypto";
 import { AccountValidationRequestBody, EntityValidationRequestBody } from "../models/jpmorgan";
+import { validateAccount, validateEntity } from "./jpmorgan.verification.service";
 
 
 enum DECORATOR_NAMES {
@@ -113,7 +114,7 @@ export const getTypeDefinitions = (req: IReq<GetTypeDefinitionsBody>, res: IRes)
  * @param {IRes} res - The response object to send back.
  * @return {IRes}
  */
-export const searchRecords = (req: IReq<SearchRecordsBody>, res: IRes): IRes => {
+export const searchRecords = async (req: IReq<SearchRecordsBody>, res: IRes): Promise<IRes> => {
   const {
     body: {
       query
@@ -125,15 +126,22 @@ export const searchRecords = (req: IReq<SearchRecordsBody>, res: IRes): IRes => 
     const isAccountValidation = query.from === "Account";
 
     let body: AccountValidationRequestBody | EntityValidationRequestBody;
+    let response, verified;
     if (isAccountValidation) {
       const account = mapWithSchema(keyValuePairs, accountSchema);
       const entity = mapWithSchema(keyValuePairs, entitySchema);
 
       body = {
         requestId: randomUUID(),
+        profileName: "globalaccountvalidation",
         account,
         entity,
       }
+
+      response = await validateAccount(body, res);
+      verified = response.data[0]?.responses[0]?.codes?.verification?.message === "Open Valid"
+        && response.data[0]?.responses[0]?.codes?.authentication?.message === "Ownership Match"
+        || false;
     } else {
       const entity = mapWithSchema(keyValuePairs, entitySchema);
 
@@ -141,16 +149,18 @@ export const searchRecords = (req: IReq<SearchRecordsBody>, res: IRes): IRes => 
         requestId: randomUUID(),
         entity,
       }
+      response = await validateEntity(body, res);
+      verified = response.data[0]?.responses[0]?.codes?.individualID?.message === "Pass"
+        || false;
     }
 
-    // Call validation methods
-    const response = {
-      records: [{ verified: true, message: "OK" }]
-    }
+    const validationResponse = { verified, message: "Verified" };
 
-    return res.status(200).json(response);
+    return res.status(200).json(validationResponse);
   } catch (error) {
     console.log(`Encountered an error searching data: ${error.message}`);
-    return res.status(500).json(generateErrorResponse(ErrorCode.INTERNAL_ERROR, error)).send();
+
+    const validationResponse = { verified: false, message: error.message };
+    return res.status(200).json(validationResponse);
   }
 };

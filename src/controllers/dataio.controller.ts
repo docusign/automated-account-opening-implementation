@@ -1,14 +1,21 @@
 import { Router } from 'express';
 import { checkSchema } from 'express-validator';
-import Paths from '../constants/paths';
+import { expressjwt as jwt } from 'express-jwt';
 import checkValidationErrors from '../middleware/checkValidationErrors';
 import { getTypeDefinitions, getTypeNames, searchRecords } from '../services/dataio.service';
 import { dataIOGetTypeDefinitionsRecordBody, dataIOGetTypeNamesRecordBody, dataIOSearchRecordsBody } from '../validationSchemas/dataio';
+
+import Paths from '../constants/paths';
+import env from '../env';
 
 const dataIORouter = Router();
 
 dataIORouter.post(
     Paths.DataIO.GetTypeNames.Post,
+    jwt({
+      secret: env.JWT_SECRET_KEY,
+      algorithms: ['HS256'],
+    }),
     checkSchema(dataIOGetTypeNamesRecordBody, ['body']),
     checkValidationErrors,
     getTypeNames
@@ -16,6 +23,10 @@ dataIORouter.post(
 
 dataIORouter.post(
     Paths.DataIO.GetTypeDefinitions.Post,
+    jwt({
+      secret: env.JWT_SECRET_KEY,
+      algorithms: ['HS256'],
+    }),
     checkSchema(dataIOGetTypeDefinitionsRecordBody, ['body']),
     checkValidationErrors,
     getTypeDefinitions
@@ -23,6 +34,10 @@ dataIORouter.post(
 
 dataIORouter.post(
     Paths.DataIO.SearchRecords.Post,
+    jwt({
+      secret: env.JWT_SECRET_KEY,
+      algorithms: ['HS256'],
+    }),
     checkSchema(dataIOSearchRecordsBody, ['body']),
     checkValidationErrors,
     searchRecords
