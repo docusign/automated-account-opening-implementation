@@ -3,6 +3,12 @@ import path from "path";
 import { GetTypeDefinitionsBody, GetTypeNamesBody, SearchRecordsBody, TypeNameInfo } from "../models/datawriteback";
 import { ModelManagerUtil } from "../utils/modelManagerUtil";
 import { IReq, IRes } from "../utils/types";
+import { extractPairs } from "../utils/mapping";
+import { mapWithSchema } from "../mapping/schema";
+import { accountSchema } from "../mapping/account.schema";
+import { entitySchema } from "../mapping/entity.schema";
+import { randomUUID } from "crypto";
+import { AccountValidationRequestBody, EntityValidationRequestBody } from "../models/jpmorgan";
 
 
 enum DECORATOR_NAMES {
@@ -108,5 +114,43 @@ export const getTypeDefinitions = (req: IReq<GetTypeDefinitionsBody>, res: IRes)
  * @return {IRes}
  */
 export const searchRecords = (req: IReq<SearchRecordsBody>, res: IRes): IRes => {
-    return res.json({ records: [] });
+  const {
+    body: {
+      query
+    },
+  } = req;
+
+  try {
+    const keyValuePairs = extractPairs(query);
+    const isAccountValidation = query.from === "Account";
+
+    let body: AccountValidationRequestBody | EntityValidationRequestBody;
+    if (isAccountValidation) {
+      const account = mapWithSchema(keyValuePairs, accountSchema);
+      const entity = mapWithSchema(keyValuePairs, entitySchema);
+
+      body = {
+        requestId: randomUUID(),
+        account,
+        entity,
+      }
+    } else {
+      const entity = mapWithSchema(keyValuePairs, entitySchema);
+
+      body = {
+        requestId: randomUUID(),
+        entity,
+      }
+    }
+
+    // Call validation methods
+    const response = {
+      records: [{ verified: true, message: "OK" }]
+    }
+
+    return res.status(200).json(response);
+  } catch (error) {
+    console.log(`Encountered an error searching data: ${error.message}`);
+    return res.status(500).json(generateErrorResponse(ErrorCode.INTERNAL_ERROR, error)).send();
+  }
 };

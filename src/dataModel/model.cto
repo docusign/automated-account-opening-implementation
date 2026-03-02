@@ -27,6 +27,10 @@ concept Entity {
     @Term("Name Suffix")
     @Crud("Readable")
     o String nameSuffix optional
+
+    @Term("Full Name")
+    @Crud("Readable")
+    o String fullName
     
     @Term("Gender")
     @Crud("Readable")
@@ -123,6 +127,15 @@ concept Entity {
     @Term("Phone Number Type")
     @Crud("Readable")
     o String phoneNumberType optional
+
+    // Verification
+    @Term("Verified")
+    @Crud("Readable")
+    o Boolean verified optional
+
+    @Term("Message")
+    @Crud("Readable")
+    o String message optional
 }
 
 @Term("Account")
@@ -136,11 +149,33 @@ concept Account {
     @Crud("Readable")
     o String accountType optional
 
-    @Term("Id")
+    @Term("Clearing Id")
     @Crud("Readable")
-    o String id
+    o String clearingId
     
-    @Term("Id Type")
+    @Term("Clearing Id Type")
     @Crud("Readable")
-    o String idType
+    o String clearingIdType
+
+    // Individual
+    @Term("First Name")
+    @Crud("Readable")
+    o String firstName
+
+    @Term("Last Name")
+    @Crud("Readable")
+    o String lastName
+    
+    @Term("Full Name")
+    @Crud("Readable")
+    o String fullName
+
+    // Verification
+    @Term("Verified")
+    @Crud("Readable")
+    o Boolean verified optional
+
+    @Term("Message")
+    @Crud("Readable")
+    o String message optional
 }
