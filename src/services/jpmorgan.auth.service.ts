@@ -1,5 +1,6 @@
 import { IRes } from '../utils/types';
 import axios from 'axios';
+import { t } from '../i18n';
 
 let cachedToken: string | null = null;
 let tokenExpiry: number | null = null;
@@ -47,7 +48,7 @@ export const generateAuthToken = async (res: IRes) => {
   } catch (error: any) {
     console.error(error.response?.data || error.message);
     return res.status(500).json({
-      error: 'Failed to retrieve access token'
+      error: t("FAILED_TO_RETRIEVE_TOKEN")
     });
   }
 };
