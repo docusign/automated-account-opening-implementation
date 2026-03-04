@@ -1,5 +1,6 @@
 import { anyProvided, missingRequired, Schema } from "../mapping/schema";
 import type { Entity } from "../models/jpmorgan";
+import { t } from "../i18n";
 
 const strArr = (sep = ",") => (v: string) =>
   v.split(sep)
@@ -124,7 +125,7 @@ export const entitySchema: Schema<Entity> = {
     if (anyProvided(src, POSTAL_GROUP_KEYS)) {
       const missing = missingRequired(src, POSTAL_REQUIRED_WHEN_PRESENT);
       for (const k of missing) {
-        errs.push(`postalAddress provided but missing required field "${k}"`);
+        errs.push(t("POSTAL_ADDRESS_NOT_FULL") + k);
       }
     }
 
@@ -132,7 +133,7 @@ export const entitySchema: Schema<Entity> = {
     if (anyProvided(src, IDENT_GROUP_KEYS)) {
       const missing = missingRequired(src, IDENT_REQUIRED_WHEN_PRESENT);
       for (const k of missing) {
-        errs.push(`identification provided but missing required field "${k}"`);
+        errs.push(t("ID_NOT_FULL") + k);
       }
     }
 
@@ -140,7 +141,7 @@ export const entitySchema: Schema<Entity> = {
     if (anyProvided(src, PHONE_GROUP_KEYS)) {
       const missing = missingRequired(src, PHONE_REQUIRED_WHEN_PRESENT);
       for (const k of missing) {
-        errs.push(`phoneNumbers provided but missing required field "${k}"`);
+        errs.push(t("PHONE_NUMBER_NOT_FULL") + k);
       }
     }
 

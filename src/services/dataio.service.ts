@@ -10,7 +10,7 @@ import { entitySchema } from "../mapping/entity.schema";
 import { randomUUID } from "crypto";
 import { AccountValidationRequestBody, EntityValidationRequestBody } from "../models/jpmorgan";
 import { validateAccount, validateEntity } from "./jpmorgan.verification.service";
-
+import { t } from "../i18n";
 
 enum DECORATOR_NAMES {
   TERM = 'Term',
@@ -103,7 +103,7 @@ export const getTypeDefinitions = (req: IReq<GetTypeDefinitionsBody>, res: IRes)
       declarations: READABLE_CONCEPTS.map((concept: ConceptDeclaration) => concept.ast)
     })
   } catch (err) {
-    console.log(`Encountered an error getting type definitions: ${err.message}`);
+    console.log(t("ERROR_GETING_TYPE_DEFINITIONS") + err.message);
     return res.status(500).json(generateErrorResponse(ErrorCode.INTERNAL_ERROR, err)).send();
   }
 };
@@ -155,7 +155,7 @@ export const searchRecords = async (req: IReq<SearchRecordsBody>, res: IRes): Pr
 
     return res.status(200).json(validationResponse);
   } catch (error) {
-    console.log(`Encountered an error searching data: ${error.message}`);
+    console.log(t("ERROR_SEARCHING_DATA") + error.message);
 
     const validationResponse = { records: [{ verified: false, message: error.message }] };
     return res.status(200).json(validationResponse).send();

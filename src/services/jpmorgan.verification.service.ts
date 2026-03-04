@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { fetchAccessToken } from './jpmorgan.auth.service'; // adjust path if needed
 import { AccountValidationRequestBody, EntityValidationRequestBody } from '../models/jpmorgan';
+import { t } from '../i18n';
 
 export const validateEntity = async (validationData: EntityValidationRequestBody) => {
   try {
@@ -22,10 +23,10 @@ export const validateEntity = async (validationData: EntityValidationRequestBody
     return await axios.request(options);
   } catch (error: any) {
     console.error(
-      error.response?.data || error.message || 'Entity validation failed'
+      error.response?.data || error.message || t('ENTITY_VALIDATION_FAILED')
     );
 
-    throw new Error(error.response?.data || error.message || 'Entity validation failed');
+    throw new Error(error.response?.data || error.message || t('ENTITY_VALIDATION_FAILED'));
   }
 };
 
@@ -49,9 +50,9 @@ export const validateAccount = async (validationData: AccountValidationRequestBo
     return await axios.request(options);
   } catch (error: any) {
     console.error(
-      error.response?.data || error.message || 'Account validation failed'
+      error.response?.data || error.message || t('ACCOUNT_VALIDATION_FAILED')
     );
 
-    throw new Error(error.response?.data || error.message || 'Account validation failed');
+    throw new Error(error.response?.data || error.message || t('ACCOUNT_VALIDATION_FAILED'));
   }
 };

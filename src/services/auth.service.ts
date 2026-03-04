@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import { JwtPayload } from 'jsonwebtoken';
 import { AuthorizeQuery, GenerateAuthTokenBody } from '../models/auth';
 import * as crypto from'crypto';
+import { t } from '../i18n';
 
 export const authorize = (req: IReqQuery<AuthorizeQuery>, res: IRes) => {
   const {
@@ -67,7 +68,7 @@ export const getUserInfo = (req: IReq, res: IRes) => {
   const payload = jwt.verify(token, process.env.JWT_SECRET_KEY!) as JwtPayload;
 
   if (!payload) {
-    throw new Error('Invalid token');
+    throw new Error(t('INVALID_TOKEN'));
   }
 
   return res.json({ sub: payload.sub, email: payload.email as string });

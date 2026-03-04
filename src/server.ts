@@ -7,6 +7,7 @@ import helmet from 'helmet';
 import express, { Request, Response, NextFunction } from 'express';
 
 import 'express-async-errors';
+import { t as translate } from './i18n';
 
 import BaseRouter from './controllers/api.controller';
 import Paths from './constants/paths';
@@ -28,6 +29,12 @@ app.set('views', './views');
 app.use(express.static('./views'));
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true }));
+
+// expose translator to views and request handlers via `res.locals.t`
+app.use((_, res, next) => {
+  (res as any).locals.t = translate;
+  next();
+});
 
 // Show routes called in console during development
 if (process.env.NODE_ENV === NodeEnvs.Dev) {
