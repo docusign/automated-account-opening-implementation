@@ -5,27 +5,32 @@ export const accountSchema: Schema<Account> = {
   name: "Account",
   rules: [
     // Account
-    { kind: "exact", from: "accountNumber", to: "accountNumber", required: true },
-    { kind: "exact", from: "accountType", to: "accountType" },
+    { kind: "exact", from: "accountNumber", to: "account.accountNumber", required: true },
+    { kind: "exact", from: "accountType", to: "account.accountType" },
+
+    // Individual
+    { kind: "exact", from: "firstName", to: "individual.firstName", required: true },
+    { kind: "exact", from: "lastName", to: "individual.lastName", required: true },
+    { kind: "exact", from: "fullName", to: "individual.fullName", required: true },
 
     // Financial Institution Id / Clearing System
-    { kind: "exact", from: "clearingId", to: "financialInstitutionId.clearingSystemId.id", required: true },
-    { kind: "exact", from: "clearingIdType", to: "financialInstitutionId.clearingSystemId.idType", required: true },
+    { kind: "exact", from: "clearingId", to: "account.financialInstitutionId.clearingSystemId.id", required: true },
+    { kind: "exact", from: "clearingIdType", to: "account.financialInstitutionId.clearingSystemId.idType", required: true },
 
     // Postal address
-    { kind: "exact", from: "country", to: "financialInstitutionId.postalAddress.country" },
+    { kind: "exact", from: "country", to: "account.financialInstitutionId.postalAddress.country" },
 
-    { kind: "exact", from: "townName", to: "financialInstitutionId.postalAddress.townName" },
-    { kind: "exact", from: "countrySubDvsn", to: "financialInstitutionId.postalAddress.countrySubDvsn" },
-    { kind: "exact", from: "postalCode", to: "financialInstitutionId.postalAddress.postalCode" },
-    { kind: "exact", from: "county", to: "financialInstitutionId.postalAddress.county" },
-    { kind: "exact", from: "unitNumber", to: "financialInstitutionId.postalAddress.unitNumber" },
-    { kind: "exact", from: "buildingNumber", to: "financialInstitutionId.postalAddress.buildingNumber" },
-    { kind: "exact", from: "buildingName", to: "financialInstitutionId.postalAddress.buildingName" },
-    { kind: "exact", from: "streetType", to: "financialInstitutionId.postalAddress.streetType" },
-    { kind: "exact", from: "streetName", to: "financialInstitutionId.postalAddress.streetName" },
-    { kind: "exact", from: "suburb", to: "financialInstitutionId.postalAddress.suburb" },
+    { kind: "exact", from: "townName", to: "account.financialInstitutionId.postalAddress.townName" },
+    { kind: "exact", from: "countrySubDvsn", to: "account.financialInstitutionId.postalAddress.countrySubDvsn" },
+    { kind: "exact", from: "postalCode", to: "account.financialInstitutionId.postalAddress.postalCode" },
+    { kind: "exact", from: "county", to: "account.financialInstitutionId.postalAddress.county" },
+    { kind: "exact", from: "unitNumber", to: "account.financialInstitutionId.postalAddress.unitNumber" },
+    { kind: "exact", from: "buildingNumber", to: "account.financialInstitutionId.postalAddress.buildingNumber" },
+    { kind: "exact", from: "buildingName", to: "account.financialInstitutionId.postalAddress.buildingName" },
+    { kind: "exact", from: "streetType", to: "account.financialInstitutionId.postalAddress.streetType" },
+    { kind: "exact", from: "streetName", to: "account.financialInstitutionId.postalAddress.streetName" },
+    { kind: "exact", from: "suburb", to: "account.financialInstitutionId.postalAddress.suburb" },
 
-    { kind: "exact", from: "addressLine", to: "financialInstitutionId.postalAddress.addressLine", map: (v) => v.split(",") },
+    { kind: "exact", from: "addressLine", to: "account.financialInstitutionId.postalAddress.addressLine", map: (v) => v.split(",") },
   ],
 };

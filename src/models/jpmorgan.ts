@@ -51,7 +51,7 @@ export interface Individual {
     fullName: string;
     associatedCountries?: string[];
     gender?: string;
-    dateOfBirth?: string;
+    dateOfBirth?: number;
     postalAddress?: PostalAddress;
     identification?: Identification[];
     contactDetails?: ContactDetails;
@@ -78,12 +78,12 @@ export interface Account extends Verifiable {
     financialInstitutionId: FincancialInstitutionId;
 }
 
-export interface EntityValidationRequestBody {
+export interface EntityValidationRequestBody extends Entity {
     profileName?: string;
     requestId: string;
-    entity: Entity;
 }
 
-export interface AccountValidationRequestBody extends EntityValidationRequestBody {
-    account: Account;
+export interface AccountValidationRequestBody extends Account {
+    profileName?: string;
+    requestId: string;
 }

@@ -129,13 +129,11 @@ export const searchRecords = async (req: IReq<SearchRecordsBody>, res: IRes): Pr
     let response, verified;
     if (isAccountValidation) {
       const account = mapWithSchema(keyValuePairs, accountSchema);
-      const entity = mapWithSchema(keyValuePairs, entitySchema);
 
       body = {
         requestId: randomUUID(),
         profileName: "globalaccountvalidation",
-        account,
-        entity,
+        ...account,
       }
 
       response = await validateAccount(body);
@@ -147,7 +145,7 @@ export const searchRecords = async (req: IReq<SearchRecordsBody>, res: IRes): Pr
 
       body = {
         requestId: randomUUID(),
-        entity,
+        ...entity,
       }
       response = await validateEntity(body);
       verified = response.data[0]?.responses[0]?.codes?.individualID?.message?.toLowerCase() === "pass";
@@ -160,6 +158,6 @@ export const searchRecords = async (req: IReq<SearchRecordsBody>, res: IRes): Pr
     console.log(`Encountered an error searching data: ${error.message}`);
 
     const validationResponse = { records: [{ verified: false, message: error.message }] };
-    return res.status(200).json(validationResponse);
+    return res.status(200).json(validationResponse).send();
   }
 };

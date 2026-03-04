@@ -110,6 +110,10 @@ export function setByPath(obj: Record<string, any>, path: string, value: unknown
   const lastToken = tokens[tokens.length - 1];
 
   if (typeof lastToken === "string") {
+    if (lastToken.toLowerCase().includes("date")) {
+      value = dateToNumber(value as string);
+    }
+
     current[lastToken] = value;
   } else {
     if (!Array.isArray(current)) {
@@ -123,6 +127,12 @@ export function pairsToDict(pairs: readonly KeyValuePair[]): Record<string, stri
   const dict: Record<string, string> = {};
   for (const p of pairs) dict[p.key] = p.value;
   return dict;
+}
+
+export function dateToNumber(s: string): number | null {
+  const m = /^(\d{4})\/(\d{2})\/(\d{2})$/.exec(s);
+  if (!m) return null;
+  return Number(m[1] + m[2] + m[3]);
 }
 
 export function mapWithSchema<TOutput extends object>(
