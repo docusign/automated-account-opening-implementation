@@ -3,6 +3,10 @@ import { fetchAccessToken } from './jpmorgan.auth.service'; // adjust path if ne
 import { AccountValidationRequestBody, EntityValidationRequestBody } from '../models/jpmorgan';
 import { t } from '../i18n';
 
+const parseValidationError = (error: any) => {
+  return error.response?.data?.context?.map((c: any) => `${c.message} in ${c.location}${c.field}`).join('. ');
+}
+
 export const validateEntity = async (validationData: EntityValidationRequestBody) => {
   try {
     await fetchAccessToken();
@@ -26,7 +30,7 @@ export const validateEntity = async (validationData: EntityValidationRequestBody
       error.response?.data || error.message || t('ENTITY_VALIDATION_FAILED')
     );
 
-    throw new Error(error.response?.data || error.message || t('ENTITY_VALIDATION_FAILED'));
+    throw new Error(parseValidationError(error) || error.message || t('ENTITY_VALIDATION_FAILED'));
   }
 };
 
@@ -53,6 +57,6 @@ export const validateAccount = async (validationData: AccountValidationRequestBo
       error.response?.data || error.message || t('ACCOUNT_VALIDATION_FAILED')
     );
 
-    throw new Error(error.response?.data || error.message || t('ACCOUNT_VALIDATION_FAILED'));
+    throw new Error(parseValidationError(error) || error.message || t('ACCOUNT_VALIDATION_FAILED'));
   }
 };

@@ -10,8 +10,8 @@
     "copy-views:windows": "xcopy views dist\\views /E /I /Y",
     "copy-views:default": "cp -r views dist/",
     "copy-files": "run-script-os",
-    "copy-files:windows": "xcopy src\\dataModel dist\\dataModel /E /I /Y && xcopy src\\db\\*.json dist\\db /E /I /Y",
-    "copy-files:default": "cp -r src/dataModel dist/dataModel && cp src/db/*.json dist/db/"
+    "copy-files:windows": "xcopy src\\dataModel dist\\dataModel /E /I /Y",
+    "copy-files:default": "cp -r src/dataModel dist/dataModel"
   },
   "nodemonConfig": {
     "watch": [
