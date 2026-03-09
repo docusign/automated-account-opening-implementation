@@ -1,5 +1,5 @@
 {
-  "name": "extension-app-data-io-and-verification-reference-implementation",
+  "name": "docusign-jpmorgan-account-opening-implementation",
   "version": "1.0.0",
   "scripts": {
     "build": "tsc --build tsconfig.json && npm run copy-views && npm run copy-files",
