@@ -2,7 +2,7 @@ import i18next from 'i18next';
 import fs from 'fs';
 import path from 'path';
 
-const engPath = path.join(__dirname, "../src/assets/i18n/eng.json");
+const engPath = path.join(__dirname, "./assets/i18n/eng.json");
 let engData: any = {};
 try {
   const raw = fs.readFileSync(engPath, 'utf8');
