@@ -73,6 +73,10 @@ resource "aws_apprunner_service" "this" {
           OAUTH_CLIENT_ID     = local.application_oauth_client_id
           OAUTH_CLIENT_SECRET = local.application_oauth_client_secret
           AUTHORIZATION_CODE  = local.application_authorization_code
+          JPM_AUTH_URL        = local.application_jpm_auth_url
+          JPM_REQUEST_URL     = local.application_jpm_request_url
+          JPM_CLIENT_ID       = local.application_jpm_client_id
+          JPM_SECRET_KEY      = local.application_jpm_secret_key
         }
       }
     }

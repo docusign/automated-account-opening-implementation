@@ -27,7 +27,7 @@ FROM base AS dependencies
 ARG APP_DIR
 
 RUN --mount=type=bind,source=./package.json,target=${APP_DIR}/package.json \
-    --mount=type=cache,target=${APP_DIR}/.npm,uid=$UID,gid=$GID,mode=0755,sharing=locked \
+    --mount=type=cache,target=${APP_DIR}/.npm,uid=${UID},gid=${GID},mode=0755,sharing=locked \
     npm install && \
     touch ${APP_DIR}/production.env && \
     touch ${APP_DIR}/development.env

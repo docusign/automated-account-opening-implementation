@@ -11,6 +11,10 @@ locals {
   application_oauth_client_id     = coalesce(var.application_oauth_client_id, one(module.generate_oauth_client_id[*].random_bytes))
   application_oauth_client_secret = coalesce(var.application_oauth_client_secret, one(module.generate_oauth_client_secret[*].random_bytes))
   application_authorization_code  = coalesce(var.application_authorization_code, one(module.generate_authorization_code[*].random_bytes))
+  application_jpm_auth_url        = var.application_jpm_auth_url != "" ? var.application_jpm_auth_url : "https://id.payments.jpmorgan.com/am/oauth2/alpha/access_token"
+  application_jpm_request_url     = var.application_jpm_request_url != "" ? var.application_jpm_request_url : "https://api-mock.payments.jpmorgan.com/tsapi"
+  application_jpm_client_id       = var.application_jpm_client_id
+  application_jpm_secret_key      = var.application_jpm_secret_key
 
   file_path_separator = "/"
 

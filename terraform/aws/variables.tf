@@ -191,6 +191,30 @@ variable "application_authorization_code" {
   default     = ""
 }
 
+variable "application_jpm_auth_url" {
+  type        = string
+  default     = ""
+  description = "The URL for the JPM authentication service"
+}
+
+variable "application_jpm_request_url" {
+  type        = string
+  default     = ""
+  description = "The URL for the JPM request service"
+}
+
+variable "application_jpm_client_id" {
+  type        = string
+  sensitive   = true
+  description = "Application JPM Client ID"
+}
+
+variable "application_jpm_secret_key" {
+  type        = string
+  sensitive   = true
+  description = "Application JPM secret key"
+}
+
 variable "manifest_files_paths" {
   description = "The list of manifest files relative paths to generate"
   type        = list(string)
