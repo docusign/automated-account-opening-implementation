@@ -17,6 +17,39 @@ To get started, you need to:
 - **Meet the specific cloud prerequisites**:
     - [AWS](aws/README.md#specific-cloud-prerequisites)
 
+Current application uses J.P. Morgan environment variables:
+- JPM_AUTH_URL
+- JPM_REQUEST_URL
+- JPM_CLIENT_ID
+- JPM_SECRET_KEY
+
+To get `JPM_CLIENT_ID` and `JPM_SECRET_KEY`, please do the following:
+1. Go to the [J.P. Morgan Developer Portal](https://developer.payments.jpmorgan.com/console/organizations).
+2. Sign up for an account if you don't have one, or log in if you already have an account.
+3. Go to Projects and open / create your project.
+4. Open Summary and check that you have "Validation Services" in your project. If not, add it by clicking on "Add Products" and selecting "Validation Services".
+5. Go to "Validation Services" and create new credentials. You will get the `JPM_CLIENT_ID` (Client ID) and `JPM_SECRET_KEY` (Client secret)
+
+Then you need to export these variable to your shell environment for Terraform scripts.
+
+For example, you can run the following commands in your terminal (please update the values of `JPM_CLIENT_ID` and `JPM_SECRET_KEY` with the values you got from J.P. Morgan Developer Portal):
+
+In WSL or Linux:
+```sh
+export TF_VAR_application_jpm_auth_url="https://id.payments.jpmorgan.com/am/oauth2/alpha/access_token"
+export TF_VAR_application_jpm_request_url="https://api-mock.payments.jpmorgan.com/tsapi"
+export TF_VAR_application_jpm_client_id="<put your JPM_CLIENT_ID here>"
+export TF_VAR_application_jpm_secret_key="<put your JPM_SECRET_KEY here>"
+```
+
+In PowerShell:
+```powershell
+$env:TF_VAR_application_jpm_auth_url = "https://id.payments.jpmorgan.com/am/oauth2/alpha/access_token"
+$env:TF_VAR_application_jpm_request_url = "https://api-mock.payments.jpmorgan.com/tsapi"
+$env:TF_VAR_application_jpm_client_id = "<put your JPM_CLIENT_ID here>"
+$env:TF_VAR_application_jpm_secret_key = "<put your JPM_SECRET_KEY here>"
+```
+
 ## Deploying resources
 
 To deploy your extension app using Terraform, follow these steps:

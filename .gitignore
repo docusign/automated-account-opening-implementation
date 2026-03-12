@@ -2,4 +2,5 @@
 dist/
 **/**/*.log
 development.env
+production.env
 package-lock.json
