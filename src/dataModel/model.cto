@@ -3,6 +3,7 @@ namespace org.example@1.0.0
 @Term("Entity")
 @Crud("Readable")
 concept Entity {
+    // Individual
     @Term("First Name")
     @Crud("Readable")
     o String firstName
@@ -10,6 +11,131 @@ concept Entity {
     @Term("Last Name")
     @Crud("Readable")
     o String lastName
+
+    @Term("Middle Name")
+    @Crud("Readable")
+    o String middleName optional
+    
+    @Term("Additional Last Name")
+    @Crud("Readable")
+    o String additionalLastName optional
+    
+    @Term("Name Prefix")
+    @Crud("Readable")
+    o String namePrefix optional
+    
+    @Term("Name Suffix")
+    @Crud("Readable")
+    o String nameSuffix optional
+
+    @Term("Full Name")
+    @Crud("Readable")
+    o String fullName
+    
+    @Term("Gender")
+    @Crud("Readable")
+    o String gender optional
+    
+    @Term("Date of Birth")
+    @Crud("Readable")
+    o String dateOfBirth optional
+
+    // Address
+    @Term("Country")
+    @Crud("Readable")
+    o String country
+    
+    @Term("Address Line")
+    @Crud("Readable")
+    @Description("Comma-separated address lines")
+    o String addressLine optional
+    
+    @Term("Unit Number")
+    @Crud("Readable")
+    o String unitNumber optional
+    
+    @Term("Building Number")
+    @Crud("Readable")
+    o String buildingNumber optional
+    
+    @Term("Building Name")
+    @Crud("Readable")
+    o String buildingName optional
+    
+    @Term("Street Name")
+    @Crud("Readable")
+    o String streetName optional
+    
+    @Term("Street Type")
+    @Crud("Readable")
+    o String streetType optional
+    
+    @Term("Suburb")
+    @Crud("Readable")
+    o String suburb optional
+    
+    @Term("Town Name")
+    @Crud("Readable")
+    o String townName optional
+    
+    @Term("Country Subdivision")
+    @Crud("Readable")
+    o String countrySubDvsn optional
+    
+    @Term("Postal Code")
+    @Crud("Readable")
+    o String postalCode optional
+    
+    @Term("County")
+    @Crud("Readable")
+    o String county optional
+    
+    @Term("Residential Status")
+    @Crud("Readable")
+    o String residentialStatus optional
+
+    // Identification
+    @Term("Id")
+    @Crud("Readable")
+    o String id
+
+    @Term("Id Type")
+    @Crud("Readable")
+    o String idType
+
+    @Term("Issuer")
+    @Crud("Readable")
+    o String issuer optional
+
+    @Term("Issue Date")
+    @Crud("Readable")
+    o String issueDate optional
+
+    @Term("Expiration Date")
+    @Crud("Readable")
+    o String expirationDate optional
+
+    // Contact Details
+    @Term("Email")
+    @Crud("Readable")
+    o String email optional
+
+    @Term("Phone Number")
+    @Crud("Readable")
+    o String phoneNumber optional
+
+    @Term("Phone Number Type")
+    @Crud("Readable")
+    o String phoneNumberType optional
+
+    // Verification
+    @Term("Verified")
+    @Crud("Readable")
+    o Boolean verified optional
+
+    @Term("Message")
+    @Crud("Readable")
+    o String message optional
 }
 
 @Term("Account")
@@ -18,4 +144,38 @@ concept Account {
     @Term("Account Number")
     @Crud("Readable")
     o String accountNumber
+
+    @Term("Account Type")
+    @Crud("Readable")
+    o String accountType optional
+
+    @Term("Clearing Id")
+    @Crud("Readable")
+    o String clearingId
+    
+    @Term("Clearing Id Type")
+    @Crud("Readable")
+    o String clearingIdType
+
+    // Individual
+    @Term("First Name")
+    @Crud("Readable")
+    o String firstName
+
+    @Term("Last Name")
+    @Crud("Readable")
+    o String lastName
+    
+    @Term("Full Name")
+    @Crud("Readable")
+    o String fullName
+
+    // Verification
+    @Term("Verified")
+    @Crud("Readable")
+    o Boolean verified optional
+
+    @Term("Message")
+    @Crud("Readable")
+    o String message optional
 }

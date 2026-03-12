@@ -14,6 +14,23 @@ const paths = {
       Post: '/getTypeDefinitions',
     }
   },
+  Auth: {
+    Base: '/oauth',
+    Authorize: {
+      Get: '/authorize',
+    },
+    Token: {
+      Post: '/token',
+    },
+    UserInfo: {
+      Get: '/userinfo',
+    },
+  },
+  JPMorgan: {
+    Token: {
+      Post: '/token',
+    },
+  },
 };
 
 export type TPaths = Immutable<typeof paths>;

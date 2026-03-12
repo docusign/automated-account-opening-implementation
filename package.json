@@ -1,5 +1,5 @@
 {
-  "name": "extension-app-data-io-and-verification-reference-implementation",
+  "name": "docusign-jpmorgan-account-opening-implementation",
   "version": "1.0.0",
   "scripts": {
     "build": "tsc --build tsconfig.json && npm run copy-views && npm run copy-files",
@@ -10,8 +10,8 @@
     "copy-views:windows": "xcopy views dist\\views /E /I /Y",
     "copy-views:default": "cp -r views dist/",
     "copy-files": "run-script-os",
-    "copy-files:windows": "xcopy src\\dataModel dist\\dataModel /E /I /Y && xcopy src\\db\\*.json dist\\db /E /I /Y",
-    "copy-files:default": "cp -r src/dataModel dist/dataModel && cp src/db/*.json dist/db/"
+    "copy-files:windows": "xcopy src\\dataModel dist\\dataModel /E /I /Y && xcopy src\\assets\\i18n\\*.json dist\\assets\\i18n /E /I /Y",
+    "copy-files:default": "cp -r src/dataModel dist/dataModel && mkdir -p dist/assets/i18n && cp src/assets/i18n/*.json dist/assets/i18n/"
   },
   "nodemonConfig": {
     "watch": [
@@ -26,22 +26,30 @@
     "@accordproject/concerto-core": "~3.25.7",
     "@accordproject/concerto-types": "~3.25.7",
     "ajv": "^8.18.0",
+    "axios": "^1.6.7",
+    "body-parser": "^1.20.2",
     "csv-parse": "^6.1.0",
     "dotenv": "^17.3.1",
     "express": "^4.18.2",
     "express-async-errors": "^3.1.1",
     "express-jwt": "^8.5.1",
     "express-validator": "^7.3.1",
+    "fs": "0.0.2",
     "helmet": "^8.1.0",
+    "i18next": "^25.8.13",
     "install": "^0.13.0",
     "jsonwebtoken": "^9.0.3",
     "moment": "^2.30.1",
     "morgan": "^1.10.1",
+    "node-forge": "^1.3.0",
     "npm": "^11.10.0",
+    "prompt-sync": "^4.2.0",
     "pug": "^3.0.3",
+    "querystring": "^0.2.0",
     "run-script-os": "1.1.6",
     "ts-command-line-args": "^2.5.1",
-    "ts-force": "^3.5.0"
+    "ts-force": "^3.5.0",
+    "upper-case": "^1.1.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.18.0",
