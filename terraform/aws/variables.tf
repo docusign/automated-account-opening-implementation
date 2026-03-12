@@ -94,9 +94,9 @@ variable "application_build_labels" {
   description = "The labels to apply to the application build image"
   type        = map(string)
   default = {
-    "org.opencontainers.image.title"       = "Data verification, Connected fields and Data IO Extension App Reference Implementation"
-    "org.opencontainers.image.description" = "This reference implementation models seven data verification use cases: bank account owner verification, bank account verification, business FEIN verification, email address verification, phone verification, SSN verification, postal address verification, Connected fields, Data IO."
-    "org.opencontainers.image.source"      = "https://github.com/docusign/extension-app-data-io-and-verification-reference-implementation-private"
+    "org.opencontainers.image.title"       = "Docusign and JPMorgan Account Opening Implementation"
+    "org.opencontainers.image.description" = "This joint use case between Docusign and JPMorgan Chase demonstrates how financial institutions can modernize the account opening experience by combining workflow orchestration, identity validation, and agreement execution into a single, streamlined process."
+    "org.opencontainers.image.source"      = "https://github.com/docusign/docusign-jpmorgan-account-opening-implementation"
     "org.opencontainers.image.licenses"    = "MIT"
     "org.opencontainers.image.authors"     = "DocuSign Inc."
     "org.opencontainers.image.vendor"      = "DocuSign Inc."
