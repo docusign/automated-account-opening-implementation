@@ -157,7 +157,14 @@ export const searchRecords = async (req: IReq<SearchRecordsBody>, res: IRes): Pr
   } catch (error) {
     console.log(t("ERROR_SEARCHING_DATA") + error.message);
 
-    const validationResponse = { records: [{ verified: false, message: error.message }] };
+    const validationResponse = { 
+      records: [{ 
+        verified: false,
+        verificationHeader: t("VERIFICATION_FAILED_HEADER"),
+        verificationMessage: t("CANNOT_VERIFY_INFORMATION_PROVIDED"),
+        verificationError: error.message 
+      }]
+    };
     return res.status(200).json(validationResponse).send();
   }
 };

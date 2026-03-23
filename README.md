@@ -149,7 +149,8 @@ For the data search records extensions, this implementation uses the JP Morgan e
             "$class": "com.docusign.connected.data.queries@1.0.0.Query",
             "attributesToSelect": [
             "verified",
-            "message"
+            "verificationHeader",
+            "verificationMessage"
             ],
             "from": "Entity",
             "queryFilter": {
