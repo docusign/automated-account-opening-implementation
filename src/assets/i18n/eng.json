@@ -21,5 +21,7 @@
   "JWT_SECRET_KEY_NOT_SET": "JWT_SECRET_KEY not set",
   "REDIRECT_PAGE_TITLE": "Redirect Page",
   "WELCOME_MESSAGE": "Welcome to the Redirect Page",
-  "CONSENT_BUTTON": "Click me to consent"
+  "CONSENT_BUTTON": "Click me to consent",
+  "VERIFICATION_FAILED_HEADER": "Verification failed",
+  "CANNOT_VERIFY_INFORMATION_PROVIDED": "We couldn’t verify the information provided. Please review and try again."
 }

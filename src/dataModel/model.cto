@@ -132,10 +132,18 @@ concept Entity {
     @Term("Verified")
     @Crud("Readable")
     o Boolean verified optional
-
-    @Term("Message")
+    
+    @Term("Verification Header")
     @Crud("Readable")
-    o String message optional
+    o String verificationHeader optional
+
+    @Term("Verification Message")
+    @Crud("Readable")
+    o String verificationMessage optional
+    
+    @Term("Verification Error")
+    @Crud("Readable")
+    o String verificationError optional
 }
 
 @Term("Account")
@@ -175,7 +183,15 @@ concept Account {
     @Crud("Readable")
     o Boolean verified optional
 
-    @Term("Message")
+    @Term("Verification Header")
     @Crud("Readable")
-    o String message optional
+    o String verificationHeader optional
+
+    @Term("Verification Message")
+    @Crud("Readable")
+    o String verificationMessage optional
+    
+    @Term("Verification Error")
+    @Crud("Readable")
+    o String verificationError optional
 }
