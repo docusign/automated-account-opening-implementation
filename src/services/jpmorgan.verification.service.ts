@@ -44,7 +44,7 @@ export const validateAccount = async (validationData: AccountValidationRequestBo
       data: [validationData],
       headers: {
         'x-client-id': process.env.JPM_CLIENT_ID,
-        'x-program-id': 'COMPANYINDIVIDUAL',
+        'x-program-id': 'VERIAUTH',
         'x-program-id-type': 'AVS',
         'Content-Type': 'application/json',
         Accept: 'application/json'
