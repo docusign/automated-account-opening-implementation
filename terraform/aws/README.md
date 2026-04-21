@@ -40,7 +40,6 @@ Now that you’ve set up your AWS environment, continue with the [Terraform depl
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | 5.100.0 |
-| <a name="provider_time"></a> [time](#provider\_time) | 0.13.1 |
 
 ## Modules
 
@@ -57,17 +56,12 @@ Now that you’ve set up your AWS environment, continue with the [Terraform depl
 
 | Name | Type |
 |------|------|
-| [aws_apprunner_service.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/apprunner_service) | resource |
 | [aws_ecr_repository.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecr_repository) | resource |
 | [aws_ecr_repository_policy.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecr_repository_policy) | resource |
-| [aws_iam_role.access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
-| [aws_iam_role.instance](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
-| [aws_iam_role_policy_attachment.apprunner](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
-| [time_sleep.access_iam_role_propagation](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
+| [aws_lightsail_container_service.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lightsail_container_service) | resource |
+| [aws_lightsail_container_service_deployment_version.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lightsail_container_service_deployment_version) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_ecr_authorization_token.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ecr_authorization_token) | data source |
-| [aws_iam_policy_document.app_role_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.apprunner](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.ecr](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
@@ -82,8 +76,8 @@ Now that you’ve set up your AWS environment, continue with the [Terraform depl
 | <a name="input_application_build_labels"></a> [application\_build\_labels](#input\_application\_build\_labels) | The labels to apply to the application build image | `map(string)` | <pre>{<br/>  "org.opencontainers.image.authors": "DocuSign Inc.",<br/>  "org.opencontainers.image.description": "This joint use case between Docusign and JPMorgan Chase demonstrates how financial institutions can modernize the account opening experience by combining workflow orchestration, identity validation, and agreement execution into a single, streamlined process.",<br/>  "org.opencontainers.image.licenses": "MIT",<br/>  "org.opencontainers.image.source": "https://github.com/docusign/docusign-jpmorgan-account-opening-implementation",<br/>  "org.opencontainers.image.title": "Docusign and JPMorgan Account Opening Implementation",<br/>  "org.opencontainers.image.vendor": "DocuSign Inc."<br/>}</pre> | no |
 | <a name="input_application_build_paths"></a> [application\_build\_paths](#input\_application\_build\_paths) | Paths of files relative to the build context, changes to which lead to a rebuild of the image. Supported pattern matches are the same as for the `fileset` Terraform function (https://developer.hashicorp.com/terraform/language/functions/fileset). | `list(string)` | <pre>[<br/>  "public/**",<br/>  "src/**",<br/>  "views/**",<br/>  "package.json",<br/>  "tsconfig.json",<br/>  "Dockerfile",<br/>  ".dockerignore"<br/>]</pre> | no |
 | <a name="input_application_environment_mode"></a> [application\_environment\_mode](#input\_application\_environment\_mode) | The environment mode for the application | `string` | `"production"` | no |
-| <a name="input_application_instance_cpu"></a> [application\_instance\_cpu](#input\_application\_instance\_cpu) | The number of CPU units to allocate to the application instance | `string` | `"256"` | no |
-| <a name="input_application_instance_memory"></a> [application\_instance\_memory](#input\_application\_instance\_memory) | The amount of memory to allocate to the application instance | `string` | `"512"` | no |
+| <a name="input_application_instance_power"></a> [application\_instance\_power](#input\_application\_instance\_power) | The power specification for the Lightsail container service instance | `string` | `"nano"` | no |
+| <a name="input_application_instance_scale"></a> [application\_instance\_scale](#input\_application\_instance\_scale) | The number of nodes for the Lightsail container service | `number` | `1` | no |
 | <a name="input_application_jpm_auth_url"></a> [application\_jpm\_auth\_url](#input\_application\_jpm\_auth\_url) | The URL for the JPM authentication service | `string` | `""` | no |
 | <a name="input_application_jpm_client_id"></a> [application\_jpm\_client\_id](#input\_application\_jpm\_client\_id) | Application JPM Client ID | `string` | n/a | yes |
 | <a name="input_application_jpm_request_url"></a> [application\_jpm\_request\_url](#input\_application\_jpm\_request\_url) | The URL for the JPM request service | `string` | `""` | no |
