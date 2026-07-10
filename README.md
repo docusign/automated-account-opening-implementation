@@ -24,7 +24,7 @@ You can use the hosted version of this reference implementation by directly uplo
 
 **Note:** The provided manifest includes `clientId` and `clientSecret` values used in the sample authentication connection. These do not authenticate to a real system, but the hosted reference implementation requires these exact values.
 
-## Choose your setup: local
+## Local setup instructions
 If you want to run the app locally using Node.js and ngrok, follow the [Local setup instructions](#local-setup-instructions) below.
 
 ### 1. Clone the repository
