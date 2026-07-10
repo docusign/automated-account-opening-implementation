@@ -31,7 +31,7 @@ If you want to run the app locally using Node.js and ngrok, follow the [Local se
 Run the following command to clone the repository:
 
 ```bash
-git clone https://github.com/docusign/extension-app-data-io-and-verification-reference-implementation.git
+git clone https://github.com/docusign/automated-account-opening-implementation.git
 ```
 
 ### 2. [Install and configure Node.js and npm on your machine.](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
