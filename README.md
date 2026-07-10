@@ -20,7 +20,7 @@ This reference implementation supports two [authentication](https://developers.d
 *Private extension apps can use either authentication method, but public extension apps must use Authorization Code Grant.*
 
 ## Hosted version (no setup required)
-You can use the hosted version of this reference implementation by directly uploading the appropriate manifest file located in the [manifests/](manifests/) folder to the Docusign Developer Console. See [Upload your manifest](#3-upload-your-manifest).
+You can use the hosted version of this reference implementation by directly uploading the appropriate manifest file located in the [/manifests](manifests/) folder to the Docusign Developer Console. See [Upload your manifest](#3-upload-your-manifest).
 
 **Note:** The provided manifest includes `clientId` and `clientSecret` values used in the sample authentication connection. These do not authenticate to a real system, but the hosted reference implementation requires these exact values.
 
